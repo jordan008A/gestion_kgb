@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS gestion_kgb_db;
 
 USE gestion_kgb_db;
 
-CREATE TABLE Agent (
+CREATE TABLE agents (
     CodeID CHAR(36) PRIMARY KEY,
     Nom VARCHAR(255),
     Prénom VARCHAR(255),
@@ -10,7 +10,7 @@ CREATE TABLE Agent (
     Nationalité VARCHAR(255)
 );
 
-CREATE TABLE Cible (
+CREATE TABLE cibles (
     NomCode CHAR(36) PRIMARY KEY,
     Nom VARCHAR(255),
     Prénom VARCHAR(255),
@@ -18,7 +18,7 @@ CREATE TABLE Cible (
     Nationalité VARCHAR(255)
 );
 
-CREATE TABLE Contact (
+CREATE TABLE contacts (
     NomCode CHAR(36) PRIMARY KEY,
     Nom VARCHAR(255),
     Prénom VARCHAR(255),
@@ -26,18 +26,18 @@ CREATE TABLE Contact (
     Nationalité VARCHAR(255)
 );
 
-CREATE TABLE Planque (
+CREATE TABLE planques (
     Code CHAR(36) PRIMARY KEY,
     Adresse VARCHAR(255),
     Pays VARCHAR(255),
     Type VARCHAR(255)
 );
 
-CREATE TABLE Spécialité (
+CREATE TABLE spécialites (
     Nom VARCHAR(255) PRIMARY KEY
 );
 
-CREATE TABLE Administrateur (
+CREATE TABLE administrateurs (
     AdresseMail VARCHAR(255) PRIMARY KEY,
     Nom VARCHAR(255),
     Prénom VARCHAR(255),
@@ -45,7 +45,7 @@ CREATE TABLE Administrateur (
     DateCréation DATE
 );
 
-CREATE TABLE Mission (
+CREATE TABLE missions (
     NomCode CHAR(36) PRIMARY KEY,
     Titre VARCHAR(255),
     Description TEXT,
