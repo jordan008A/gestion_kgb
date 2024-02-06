@@ -5,25 +5,25 @@ USE gestion_kgb_db;
 CREATE TABLE agents (
     CodeID CHAR(36) PRIMARY KEY,
     Nom VARCHAR(255),
-    Prénom VARCHAR(255),
+    Prenom VARCHAR(255),
     DateNaissance DATE,
-    Nationalité VARCHAR(255)
+    Nationalite VARCHAR(255)
 );
 
 CREATE TABLE cibles (
     NomCode CHAR(36) PRIMARY KEY,
     Nom VARCHAR(255),
-    Prénom VARCHAR(255),
+    Prenom VARCHAR(255),
     DateNaissance DATE,
-    Nationalité VARCHAR(255)
+    Nationalite VARCHAR(255)
 );
 
 CREATE TABLE contacts (
     NomCode CHAR(36) PRIMARY KEY,
     Nom VARCHAR(255),
-    Prénom VARCHAR(255),
+    Prenom VARCHAR(255),
     DateNaissance DATE,
-    Nationalité VARCHAR(255)
+    Nationalite VARCHAR(255)
 );
 
 CREATE TABLE planques (
@@ -33,16 +33,16 @@ CREATE TABLE planques (
     Type VARCHAR(255)
 );
 
-CREATE TABLE spécialites (
+CREATE TABLE specialites (
     Nom VARCHAR(255) PRIMARY KEY
 );
 
 CREATE TABLE administrateurs (
     AdresseMail VARCHAR(255) PRIMARY KEY,
     Nom VARCHAR(255),
-    Prénom VARCHAR(255),
+    Prenom VARCHAR(255),
     MotDePasse VARCHAR(255),
-    DateCréation DATE
+    DateCreation DATE
 );
 
 CREATE TABLE missions (
@@ -52,10 +52,10 @@ CREATE TABLE missions (
     Pays VARCHAR(255),
     TypeMission VARCHAR(255),
     Statut VARCHAR(255),
-    SpécialitéRequise VARCHAR(255),
-    DateDébut DATE,
+    SpecialiteRequise VARCHAR(255),
+    DateDebut DATE,
     DateFin DATE,
-    FOREIGN KEY (SpécialitéRequise) REFERENCES Spécialité(Nom)
+    FOREIGN KEY (SpecialiteRequise) REFERENCES Specialite(Nom)
 );
 
 
@@ -91,10 +91,10 @@ CREATE TABLE Mission_Planque (
     FOREIGN KEY (PlanqueCode) REFERENCES Planque(Code)
 );
 
-CREATE TABLE Agent_Spécialité (
+CREATE TABLE Agent_Specialite (
     AgentCodeID CHAR(36),
-    SpécialitéNom VARCHAR(255),
-    PRIMARY KEY (AgentCodeID, SpécialitéNom),
+    SpecialiteNom VARCHAR(255),
+    PRIMARY KEY (AgentCodeID, SpecialiteNom),
     FOREIGN KEY (AgentCodeID) REFERENCES Agent(CodeID),
-    FOREIGN KEY (SpécialitéNom) REFERENCES Spécialité(Nom)
+    FOREIGN KEY (SpecialiteNom) REFERENCES Specialite(Nom)
 );
