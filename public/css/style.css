@@ -1,0 +1,16 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+main {
+  padding: 20px;
+  min-height: calc(100vh - 160px);
+}
+
+@media (max-width: 600px) {
+  .header h1, .footer p {
+      font-size: 1em;
+  }
+}
