@@ -9,19 +9,19 @@ require_once '../models/Mission.php';
 session_start();
 
 $agentModel = new Agent();
-$agents = $agentModel->getAll();
+$getAgents = $agentModel->getAll();
 
 $contactModel = new Contact();
-$contacts = $contactModel->getAll();
+$getContacts = $contactModel->getAll();
 
 $cibleModel = new Cible();
-$cibles = $cibleModel->getAll();
+$getCibles = $cibleModel->getAll();
 
 $planqueModel = new Planque();
-$planques = $planqueModel->getAll();
+$getPlanques = $planqueModel->getAll();
 
 $specialiteModel = new Specialite();
-$specialites = $specialiteModel->getAll();
+$getSpecialites = $specialiteModel->getAll();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $missionModel = new Mission();
@@ -50,5 +50,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 } else {
     $missions = [];
-    require_once '../views/pages/missionsView.php';
+    require_once '../views/pages/addMissionView.php';
 }

@@ -55,7 +55,7 @@ CREATE TABLE missions (
     SpecialiteRequise VARCHAR(255),
     DateDebut DATE,
     DateFin DATE,
-    FOREIGN KEY (SpecialiteRequise) REFERENCES Specialite(Nom)
+    FOREIGN KEY (SpecialiteRequise) REFERENCES specialites(Nom)
 );
 
 
@@ -63,38 +63,38 @@ CREATE TABLE Mission_Agent (
     MissionNomCode CHAR(36),
     AgentCodeID CHAR(36),
     PRIMARY KEY (MissionNomCode, AgentCodeID),
-    FOREIGN KEY (MissionNomCode) REFERENCES Mission(NomCode),
-    FOREIGN KEY (AgentCodeID) REFERENCES Agent(CodeID)
+    FOREIGN KEY (MissionNomCode) REFERENCES missions(NomCode),
+    FOREIGN KEY (AgentCodeID) REFERENCES agents(CodeID)
 );
 
 CREATE TABLE Mission_Contact (
     MissionNomCode CHAR(36),
     ContactNomCode CHAR(36),
     PRIMARY KEY (MissionNomCode, ContactNomCode),
-    FOREIGN KEY (MissionNomCode) REFERENCES Mission(NomCode),
-    FOREIGN KEY (ContactNomCode) REFERENCES Contact(NomCode)
+    FOREIGN KEY (MissionNomCode) REFERENCES missions(NomCode),
+    FOREIGN KEY (ContactNomCode) REFERENCES contacts(NomCode)
 );
 
 CREATE TABLE Mission_Cible (
     MissionNomCode CHAR(36),
     CibleNomCode CHAR(36),
     PRIMARY KEY (MissionNomCode, CibleNomCode),
-    FOREIGN KEY (MissionNomCode) REFERENCES Mission(NomCode),
-    FOREIGN KEY (CibleNomCode) REFERENCES Cible(NomCode)
+    FOREIGN KEY (MissionNomCode) REFERENCES missions(NomCode),
+    FOREIGN KEY (CibleNomCode) REFERENCES cibles(NomCode)
 );
 
 CREATE TABLE Mission_Planque (
     MissionNomCode CHAR(36),
     PlanqueCode CHAR(36),
     PRIMARY KEY (MissionNomCode, PlanqueCode),
-    FOREIGN KEY (MissionNomCode) REFERENCES Mission(NomCode),
-    FOREIGN KEY (PlanqueCode) REFERENCES Planque(Code)
+    FOREIGN KEY (MissionNomCode) REFERENCES missions(NomCode),
+    FOREIGN KEY (PlanqueCode) REFERENCES planques(Code)
 );
 
 CREATE TABLE Agent_Specialite (
     AgentCodeID CHAR(36),
     SpecialiteNom VARCHAR(255),
     PRIMARY KEY (AgentCodeID, SpecialiteNom),
-    FOREIGN KEY (AgentCodeID) REFERENCES Agent(CodeID),
-    FOREIGN KEY (SpecialiteNom) REFERENCES Specialite(Nom)
+    FOREIGN KEY (AgentCodeID) REFERENCES agents(CodeID),
+    FOREIGN KEY (SpecialiteNom) REFERENCES specialites(Nom)
 );

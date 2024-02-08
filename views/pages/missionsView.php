@@ -14,7 +14,7 @@
             <?php unset($_SESSION['error_message']); ?>
         </div>
     <?php endif; ?>
-    
+
     <h2 class="mb-4">Missions</h2>
     <?php if (empty($missions)): ?>
         <div class="alert alert-warning" role="alert">

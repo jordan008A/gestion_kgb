@@ -9,5 +9,5 @@
 </head>
 <body>
 <header class="bg-dark text-white py-3 text-center">
-    <h1>Gestion des Missions KGB</h1>
+    <h1>Gestion des Missions</h1>
 </header>
