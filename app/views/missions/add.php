@@ -1,10 +1,24 @@
-<?php include_once '../views/partials/_headerView.php'; ?>
+<?php include_once BASE_PATH . '/app/views/partials/_headerView.php'; ?>
+
+<?php if (isset($_SESSION['error_messages'])): ?>
+    <div class="alert alert-danger" role="alert">
+        <?= implode('<br>', $_SESSION['error_messages']); ?>
+    </div>
+    <?php unset($_SESSION['error_messages']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['success_message'])): ?>
+    <div class="alert alert-success" role="alert">
+        <?= $_SESSION['success_message']; ?>
+    </div>
+    <?php unset($_SESSION['success_message']); ?>
+<?php endif; ?>
 
 <main class="container py-4">
     <h2 class="mb-4">Ajouter une nouvelle mission</h2>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <form action="/gestion_kgb/controllers/missionsController.php" method="post">
+            <form action="http://localhost/gestion_kgb/public/missions/store" method="post">
                 <div class="mb-3">
                     <label for="titre" class="form-label">Titre de la mission</label>
                     <input type="text" class="form-control" id="titre" name="titre" required>
@@ -37,10 +51,10 @@
                     <label for="agents" class="form-label">Agents</label>
                     <ul class="list-scroll">
                         <?php foreach ($getAgents as $agent): ?>
-                        <li>
-                            <input type="checkbox" id="agent<?= $agent['CodeID'] ?>" name="agents[]" value="<?= $agent['CodeID'] ?>">
-                            <label for="agent<?= $agent['CodeID'] ?>"><?= htmlspecialchars($agent['Nom']) . ' ' . htmlspecialchars($agent['Prenom']) . ' - ' . htmlspecialchars($agent['Nationalite']) ?></label>
-                        </li>
+                            <li>
+                                <input type="checkbox" id="agent<?= $agent['CodeID'] ?>" name="agents[]" value="<?= $agent['CodeID'] ?>">
+                                <label for="agent<?= $agent['CodeID'] ?>"><?= htmlspecialchars($agent['Nom']) . ' ' . htmlspecialchars($agent['Prenom']) . ' - ' . htmlspecialchars($agent['Nationalite']) ?> - Spécialités: <?= htmlspecialchars($agent['Specialites']) ?></label>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -98,4 +112,4 @@
     </div>
 </main>
 
-<?php include_once '../views/partials/_footerView.php'; ?>
+<?php include_once BASE_PATH . '/app/views/partials/_footerView.php'; ?>

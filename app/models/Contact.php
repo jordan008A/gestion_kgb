@@ -1,5 +1,5 @@
 <?php
-require_once 'Model.php';
+namespace App\Models;
 
 class Contact extends Model {
     public function getAll() {

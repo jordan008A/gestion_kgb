@@ -1,9 +1,9 @@
 <?php
-require_once 'Model.php';
+namespace App\Models;
 
-class Specialite extends Model {
+class Cible extends Model {
     public function getAll() {
-        $sql = "SELECT * FROM specialites";
+        $sql = "SELECT * FROM cibles";
         $result = $this->db->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }

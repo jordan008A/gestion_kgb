@@ -1,4 +1,8 @@
 <?php
+namespace App\Models;
+
+use mysqli;
+
 class Model {
     protected $db;
 
@@ -7,5 +11,9 @@ class Model {
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
         }
+    }
+
+    public function generateUuid() {
+        return uniqid('', true);
     }
 }
