@@ -81,4 +81,33 @@ class Mission extends Model {
         }
     }
 
+    public function updateStatus($missionId, $newStatus) {
+        $stmt = $this->db->prepare("UPDATE missions SET Statut = ?, DateFin = CASE WHEN ? IN ('Terminé', 'Echec') THEN NOW() ELSE DateFin END WHERE NomCode = ?");
+        $stmt->bind_param("sss", $newStatus, $newStatus, $missionId);
+        return $stmt->execute();
+    }
+
+    public function deleteMission($missionId) {
+        $this->db->begin_transaction();
+        try {
+            $tables = ['Mission_Agent', 'Mission_Contact', 'Mission_Cible', 'Mission_Planque'];
+            foreach ($tables as $table) {
+                $stmt = $this->db->prepare("DELETE FROM {$table} WHERE MissionNomCode = ?");
+                $stmt->bind_param("s", $missionId);
+                $stmt->execute();
+            }
+    
+            $stmt = $this->db->prepare("DELETE FROM missions WHERE NomCode = ?");
+            $stmt->bind_param("s", $missionId);
+            $stmt->execute();
+    
+            // Si tout va bien, transaction validée
+            $this->db->commit();
+            return true;
+        } catch (\mysqli_sql_exception $e) {
+            // En cas d'erreur, transaction annulée
+            $this->db->rollback();
+            throw $e;
+        }
+    }    
 }

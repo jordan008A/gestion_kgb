@@ -1,6 +1,9 @@
 <?php
-session_start();
+
 use App\Controllers\MissionsController;
+use App\Controllers\AdminMissionsController;
+session_start();
+
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -22,12 +25,12 @@ if ($_SERVER['HTTP_HOST'] == "localhost") {
 $routes = [
     '/' => function() { require BASE_PATH . '/app/views/home.php'; },
     '/missions' => function() { 
-        require_once BASE_PATH . '/app/controllers/missionsController.php';
+        require_once BASE_PATH . '/app/controllers/MissionsController.php';
         $controller = new MissionsController();
         $controller->index();
     },
     '/missions/details' => function() {
-        require_once BASE_PATH . '/app/controllers/missionsController.php';
+        require_once BASE_PATH . '/app/controllers/MissionsController.php';
         if (isset($_GET['nomCode'])) {
             $controller = new MissionsController();
             $controller->details($_GET['nomCode']);
@@ -38,14 +41,29 @@ $routes = [
         }
     },
     '/missions/add' => function() { 
-        require_once BASE_PATH . '/app/controllers/missionsController.php';
+        require_once BASE_PATH . '/app/controllers/MissionsController.php';
         $controller = new MissionsController();
         $controller->add();
     },
     '/missions/store' => function() {
-        require_once BASE_PATH . '/app/controllers/missionsController.php';
+        require_once BASE_PATH . '/app/controllers/MissionsController.php';
         $controller = new MissionsController();
         $controller->store();
+    },
+    '/admin/missions' => function() {
+        require_once BASE_PATH . '/app/controllers/AdminMissionsController.php';
+        $controller = new AdminMissionsController();
+        $controller->index();
+    },
+    '/admin/missions/changeStatus' => function() {
+        require_once BASE_PATH . '/app/controllers/AdminMissionsController.php';
+        $controller = new AdminMissionsController();
+        $controller->changeStatus();
+    },
+    '/admin/missions/delete' => function() {
+        require_once BASE_PATH . '/app/controllers/AdminMissionsController.php';
+        $controller = new AdminMissionsController();
+        $controller->delete();
     },
     '/404' => function() { require BASE_PATH . '/app/views/404.php'; },
 ];

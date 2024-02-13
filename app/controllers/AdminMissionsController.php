@@ -8,16 +8,47 @@ class AdminMissionsController {
     public function index() {
         $missionModel = new Mission();
         $missions = $missionModel->getAll();
-        require_once BASE_PATH . '/app/views/admin/missions/index.php';
+        require_once BASE_PATH . '/app/views/admin/missions.php';
     }
 
     public function changeStatus() {
-        // Logique pour changer le statut ou terminer la mission
-        // Récupérez les données nécessaires (ID de la mission, nouveau statut, etc.) via $_POST ou $_GET
+        $missionId = $_POST['missionId'] ?? null;
+        $newStatus = $_POST['newStatus'] ?? null;
+        
+        if ($missionId && $newStatus) {
+            $missionModel = new Mission();
+            $result = $missionModel->updateStatus($missionId, $newStatus);
+            
+            if ($result) {
+                $_SESSION['success_message'] = "Le statut de la mission a été mis à jour avec succès.";
+            } else {
+                $_SESSION['error_message'] = "Erreur lors de la mise à jour du statut de la mission.";
+            }
+        } else {
+            $_SESSION['error_message'] = "Données de mise à jour du statut manquantes.";
+        }
+    
+        header('Location: ' . BASE_URL . '/admin/missions');
+        exit();
     }
 
     public function delete() {
-        // Logique pour supprimer une mission
-        // Récupérez l'ID de la mission via $_POST ou $_GET
+        $missionId = $_POST['missionId'] ?? null;
+        
+        if ($missionId) {
+            $missionModel = new Mission();
+            $result = $missionModel->deleteMission($missionId);
+            
+            if ($result) {
+                $_SESSION['success_message'] = "La mission a été supprimée avec succès.";
+            } else {
+                $_SESSION['error_message'] = "Erreur lors de la suppression de la mission.";
+            }
+        } else {
+            $_SESSION['error_message'] = "ID de la mission manquant pour la suppression.";
+        }
+    
+        header('Location: ' . BASE_URL . '/admin/missions');
+        exit();
     }
 }

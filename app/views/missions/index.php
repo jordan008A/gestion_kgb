@@ -19,8 +19,8 @@
                             <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($mission['Titre']) ?></h5>
-                                <p class="card-text"><strong>Date de début:</strong> <?= htmlspecialchars($mission['DateDebut']) ?></p>
-                                <p class="card-text"><strong>Date de fin:</strong> <?= htmlspecialchars($mission['DateFin'] ?? 'Non défini') ?></p>
+                                <p class="card-text"><strong>Date de début:</strong> <?= htmlspecialchars($mission['DateDebut']) ? date('d/m/Y', strtotime($mission['DateDebut'])) : 'Non défini' ?></p>
+                                <p class="card-text"><strong>Date de fin:</strong> <?= !empty($mission['DateFin']) ? date('d/m/Y', strtotime($mission['DateFin'])) : 'Non défini' ?></p>
                                 <p class="card-text"><strong>Statut:</strong> <?= htmlspecialchars($mission['Statut']) ?></p>
                                 <a href="<?= BASE_URL ?>/missions/details?nomCode=<?= $mission['NomCode'] ?>" class="btn btn-primary">Détails</a>
                             </div>
