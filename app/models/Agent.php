@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Exception;
+
 class Agent extends Model {
     public function getAll() {
         $sql = "SELECT agents.*, GROUP_CONCAT(specialites.Nom SEPARATOR ', ') AS Specialites 
@@ -17,18 +19,32 @@ class Agent extends Model {
     }
 
     public function add($nom, $prenom, $dateNaissance, $nationalite, $specialites) {
-        $stmt = $this->db->prepare("INSERT INTO agents (Nom, Prenom, DateNaissance, Nationalite) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $nom, $prenom, $dateNaissance, $nationalite);
-        if (!$stmt->execute()) {
+        $this->db->begin_transaction();
+        
+        try {
+            $agentId = $this->generateUuid();
+    
+            $stmt = $this->db->prepare("INSERT INTO agents (CodeID, Nom, Prenom, DateNaissance, Nationalite) VALUES (?, ?, ?, ?, ?)"); // Corrigé pour inclure 5 placeholders
+            $stmt->bind_param("sssss", $agentId, $nom, $prenom, $dateNaissance, $nationalite);
+            if (!$stmt->execute()) {
+                throw new Exception("Erreur lors de l'insertion de l'agent.");
+            }
+            
+            foreach ($specialites as $specialite) {
+                $stmt = $this->db->prepare("INSERT INTO Agent_Specialite (AgentCodeID, SpecialiteNom) VALUES (?, ?)");
+                $stmt->bind_param("ss", $agentId, $specialite);
+                if (!$stmt->execute()) {
+                    throw new Exception("Erreur lors de l'ajout d'une spécialité à l'agent.");
+                }
+            }
+        
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollback();
+            error_log($e->getMessage());
             return false;
         }
-        $agentId = $stmt->insert_id;
-        foreach ($specialites as $specialite) {
-            $stmt = $this->db->prepare("INSERT INTO Agent_Specialite (AgentCodeID, SpecialiteNom) VALUES (?, ?)");
-            $stmt->bind_param("ss", $agentId, $specialite);
-            $stmt->execute();
-        }
-        return true;
     }
 
     public function getById($id) {
@@ -46,12 +62,57 @@ class Agent extends Model {
     }
 
     public function delete($id) {
-        $stmt = $this->db->prepare("DELETE FROM Agent_Specialite WHERE AgentCodeID = ?");
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
+        $this->db->begin_transaction();
+        try {
+            $stmt = $this->db->prepare("DELETE FROM Agent_Specialite WHERE AgentCodeID = ?");
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+    
+            $stmt = $this->db->prepare("DELETE FROM agents WHERE CodeID = ?");
+            $stmt->bind_param("s", $id);
+            if (!$stmt->execute()) {
+                throw new Exception("Impossible de supprimer l'agent.");
+            }
+    
+            $this->db->commit();
+            return ['success' => true];
+        } catch (\mysqli_sql_exception $e) {
+            $this->db->rollback();
+            return ['success' => false, 'message' => "Cet agent est en service et ne peut pas être supprimé."];
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return ['success' => false, 'message' => $e->getMessage()];
+        }
+    }
+    
 
-        $stmt = $this->db->prepare("DELETE FROM agents WHERE CodeID = ?");
-        $stmt->bind_param("s", $id);
-        return $stmt->execute();
+    public function getSpecialitesByAgentId($agentId) {
+        $sql = "SELECT specialites.Nom 
+                FROM Agent_Specialite 
+                JOIN specialites ON Agent_Specialite.SpecialiteNom = specialites.Nom 
+                WHERE Agent_Specialite.AgentCodeID = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $agentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $specialites = [];
+        while ($row = $result->fetch_assoc()) {
+            $specialites[] = $row['Nom'];
+        }
+        
+        return $specialites;
+    }
+
+    public function deleteSpecialites($agentId) {
+        $stmt = $this->db->prepare("DELETE FROM Agent_Specialite WHERE AgentCodeID = ?");
+        $stmt->bind_param("s", $agentId);
+        $stmt->execute();
+    }
+
+    public function addSpecialite($agentId, $specialiteNom) {
+        $stmt = $this->db->prepare("INSERT INTO Agent_Specialite (AgentCodeID, SpecialiteNom) VALUES (?, ?)");
+        $stmt->bind_param("ss", $agentId, $specialiteNom);
+        $stmt->execute();
     }
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
 <header class="bg-dark text-white py-4 px-5 d-flex justify-content-between align-items-center">
-        <img src="<?= BASE_URL ?>/img/logo.png" alt="Logo KGB" style="height: 70px;">
+        <a href="<?= BASE_URL ?>/"><img src="<?= BASE_URL ?>/img/logo.png" alt="Logo KGB" style="height: 70px;"></a>
     <h1 class="mx-2 py-1">K.G.B</h1>
     <a href="" class="btn btn-light">Se connecter</a>
 </header>

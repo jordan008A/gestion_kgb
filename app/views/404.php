@@ -11,7 +11,7 @@
     <h1 class="py-2 fs-1">Oups! Page introuvable.</h1>
     <p class="py-2 fs-4">Il semble que vous vous soyez égaré...
       <br> Ne vous inquiétez pas, ça arrive même aux meilleurs espions!</p>
-    <a href="/" class="btn btn-secondary fs-4">Retour à l'accueil</a>
+    <a href="<?= BASE_URL ?>/" class="btn btn-secondary fs-4">Retour à l'accueil</a>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

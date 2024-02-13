@@ -35,7 +35,6 @@ $routes = [
             $controller = new MissionsController();
             $controller->details($_GET['nomCode']);
         } else {
-            // Gérer l'erreur ou rediriger
             http_response_code(404);
             require BASE_PATH . '/app/views/404.php';
         }
@@ -64,6 +63,31 @@ $routes = [
         require_once BASE_PATH . '/app/controllers/AdminMissionsController.php';
         $controller = new AdminMissionsController();
         $controller->delete();
+    },
+    '/admin/agents' => function() {
+        $controller = new \App\Controllers\AdminAgentsController();
+        $controller->index();
+    },
+    '/admin/agents/create' => function() {
+        $controller = new \App\Controllers\AdminAgentsController();
+        $controller->create();
+    },
+    '/admin/agents/edit' => function() {
+        $controller = new \App\Controllers\AdminAgentsController();
+        $controller->edit();
+    },
+    '/admin/agents/delete' => function() {
+        $controller = new \App\Controllers\AdminAgentsController();
+        $controller->delete();
+    },
+    '/admin/agents/details' => function() {
+        if (isset($_GET['agentId'])) {
+            $controller = new \App\Controllers\AdminAgentsController();
+            $controller->details($_GET['agentId']);
+        } else {
+            http_response_code(404);
+            require BASE_PATH . '/app/views/404.php';
+        }
     },
     '/404' => function() { require BASE_PATH . '/app/views/404.php'; },
 ];
