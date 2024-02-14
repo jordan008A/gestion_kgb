@@ -1,7 +1,10 @@
 <?php
 
 use App\Controllers\MissionsController;
+use App\Controllers\AdminAgentsController;
+use App\Controllers\AdminCiblesController;
 use App\Controllers\AdminMissionsController;
+
 session_start();
 
 
@@ -65,25 +68,50 @@ $routes = [
         $controller->delete();
     },
     '/admin/agents' => function() {
-        $controller = new \App\Controllers\AdminAgentsController();
+        $controller = new AdminAgentsController();
         $controller->index();
     },
     '/admin/agents/create' => function() {
-        $controller = new \App\Controllers\AdminAgentsController();
+        $controller = new AdminAgentsController();
         $controller->create();
     },
     '/admin/agents/edit' => function() {
-        $controller = new \App\Controllers\AdminAgentsController();
+        $controller = new AdminAgentsController();
         $controller->edit();
     },
     '/admin/agents/delete' => function() {
-        $controller = new \App\Controllers\AdminAgentsController();
+        $controller = new AdminAgentsController();
         $controller->delete();
     },
     '/admin/agents/details' => function() {
         if (isset($_GET['agentId'])) {
-            $controller = new \App\Controllers\AdminAgentsController();
+            $controller = new AdminAgentsController();
             $controller->details($_GET['agentId']);
+        } else {
+            http_response_code(404);
+            require BASE_PATH . '/app/views/404.php';
+        }
+    },
+    '/admin/cibles' => function() {
+        $controller = new AdminCiblesController();
+        $controller->index();
+    },
+    '/admin/cibles/create' => function() {
+        $controller = new AdminCiblesController();
+        $controller->create();
+    },
+    '/admin/cibles/edit' => function() {
+        $controller = new AdminCiblesController();
+        $controller->edit();
+    },
+    '/admin/cibles/delete' => function() {
+        $controller = new AdminCiblesController();
+        $controller->delete();
+    },
+    '/admin/cibles/details' => function() {
+        if (isset($_GET['cibleId'])) {
+            $controller = new AdminCiblesController();
+            $controller->details($_GET['cibleId']);
         } else {
             http_response_code(404);
             require BASE_PATH . '/app/views/404.php';
