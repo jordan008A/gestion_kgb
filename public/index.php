@@ -3,6 +3,7 @@
 use App\Controllers\MissionsController;
 use App\Controllers\AdminAgentsController;
 use App\Controllers\AdminCiblesController;
+use App\Controllers\AdminContactsController;
 use App\Controllers\AdminMissionsController;
 
 session_start();
@@ -112,6 +113,31 @@ $routes = [
         if (isset($_GET['cibleId'])) {
             $controller = new AdminCiblesController();
             $controller->details($_GET['cibleId']);
+        } else {
+            http_response_code(404);
+            require BASE_PATH . '/app/views/404.php';
+        }
+    },
+    '/admin/contacts' => function() {
+        $controller = new AdminContactsController();
+        $controller->index();
+    },
+    '/admin/contacts/create' => function() {
+        $controller = new AdminContactsController();
+        $controller->create();
+    },
+    '/admin/contacts/edit' => function() {
+        $controller = new AdminContactsController();
+        $controller->edit();
+    },
+    '/admin/contacts/delete' => function() {
+        $controller = new AdminContactsController();
+        $controller->delete();
+    },
+    '/admin/contacts/details' => function() {
+        if (isset($_GET['contactId'])) {
+            $controller = new AdminContactsController();
+            $controller->details($_GET['contactId']);
         } else {
             http_response_code(404);
             require BASE_PATH . '/app/views/404.php';

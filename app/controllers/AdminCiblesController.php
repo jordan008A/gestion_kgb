@@ -60,7 +60,7 @@ class AdminCiblesController {
             $result = $cibleModel->delete($id);
     
             if ($result['success']) {
-                $_SESSION['success_message'] = 'La cible a été supprimé avec succès.';
+                $_SESSION['success_message'] = 'La cible a été supprimée avec succès.';
             } else {
                 $_SESSION['error_message'] = $result['message'];
             }
@@ -78,7 +78,7 @@ class AdminCiblesController {
       if ($cibleDetails) {
           echo json_encode(['success' => true, 'data' => $cibleDetails]);
       } else {
-          echo json_encode(['success' => false, 'message' => 'Aucune cible trouvé.']);
+          echo json_encode(['success' => false, 'message' => 'Aucune cible trouvée.']);
       }
       exit;
   }
