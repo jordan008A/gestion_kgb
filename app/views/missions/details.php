@@ -2,8 +2,8 @@
 
 <main class="container py-4">
     <h2>Détails de la Mission</h2>
-    <p><strong>Titre:</strong> <?= htmlspecialchars($missionDetails['Titre']) ?></p>
-    <p><strong>Description:</strong> <?= htmlspecialchars($missionDetails['Description']) ?></p>
+    <p><strong>Titre:</strong> <?= htmlspecialchars_decode($missionDetails['Titre']) ?></p>
+    <p><strong>Description:</strong> <?= htmlspecialchars_decode($missionDetails['Description']) ?></p>
     <p><strong>Pays:</strong> <?= htmlspecialchars($missionDetails['Pays']) ?></p>
     <p><strong>Type de mission:</strong> <?= htmlspecialchars($missionDetails['TypeMission']) ?></p>
     <p><strong>Statut:</strong> <?= htmlspecialchars($missionDetails['Statut']) ?></p>

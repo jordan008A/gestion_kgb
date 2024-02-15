@@ -44,40 +44,111 @@ class MissionsController {
     }
 
     public function store() {
-        
-        $titre = htmlspecialchars($_POST['titre']);
-        $description = htmlspecialchars($_POST['description']);
-        $pays = htmlspecialchars($_POST['pays']);
-        $type = htmlspecialchars($_POST['typeMission']);
-        $statut = htmlspecialchars($_POST['statut']);
-        $specialite = htmlspecialchars($_POST['specialite']);
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
     
-        $errors = [];
-        if (empty($titre)) $errors[] = 'Le titre est requis.';
-        if (empty($description)) $errors[] = 'La description est requise.';
-        if (empty($pays)) $errors[] = 'Le pays est requis.';
-        if (empty($type)) $errors[] = 'Le type de mission est requis.';
-        if (empty($statut)) $errors[] = 'Le statut est requis.';
-        if (empty($specialite)) $errors[] = 'La spécialité est requise.';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/missions/add');
+                exit();
+            }
     
-        if (!empty($errors)) {
-        $_SESSION['error_messages'] = $errors;
-        header('Location: ' . BASE_URL . '/missions/add');
-        exit();
+            $missionData = [
+                'titre' => htmlspecialchars($_POST['titre']),
+                'description' => htmlspecialchars($_POST['description']),
+                'pays' => htmlspecialchars($_POST['pays']),
+                'type' => htmlspecialchars($_POST['typeMission']),
+                'statut' => htmlspecialchars($_POST['statut']),
+                'specialite' => htmlspecialchars($_POST['specialite']),
+                'dateDebut' => $_POST['dateDebut'],
+            ];
+            $agents = $_POST['agents'] ?? [];
+            $contacts = $_POST['contacts'] ?? [];
+            $cibles = $_POST['cibles'] ?? [];
+            $planques = $_POST['planques'] ?? [];
+    
+            $errors = $this->validateMissionData($missionData, $agents, $contacts, $cibles, $planques);
+    
+            if (!empty($errors)) {
+                $_SESSION['error_messages'] = $errors;
+                header('Location: ' . BASE_URL . '/missions/add');
+                exit();
+            }
+    
+            $missionModel = new Mission();
+            $result = $missionModel->addMission(
+                $missionData['titre'],
+                $missionData['description'],
+                $missionData['pays'],
+                $missionData['type'],
+                $missionData['statut'],
+                $missionData['specialite'],
+                $agents,
+                $contacts,
+                $cibles,
+                $planques,
+                $missionData['dateDebut']
+            );
+    
+            if ($result['success']) {
+                $_SESSION['success_message'] = 'La mission a été ajoutée avec succès.';
+                header('Location: ' . BASE_URL . '/missions');
+                exit();
+            } else {
+                $_SESSION['error_message'] = 'Échec de l\'ajout de la mission : ' . $result['message'];
+                header('Location: ' . BASE_URL . '/missions/add');
+                exit();
+            }
+        }
     }
+    
 
-    $missionModel = new Mission;
-    $result = $missionModel->addMission($titre, $description, $pays, $type, $statut, $specialite, $_POST['agents'], $_POST['contacts'], $_POST['cibles'], $_POST['planques'], $_POST['dateDebut']);
+    private function validateMissionData($missionData, $agents, $contacts, $cibles, $planques) {
+        $errors = [];
     
-    if ($result['success']) {
-        $_SESSION['success_message'] = 'La mission a été ajoutée avec succès.';
-        header('Location: ' . BASE_URL . '/missions');
-        exit();
-    } else {
-        error_log('Échec de l\'ajout de la mission : ' . $result['message']);
-        $_SESSION['error_message'] = 'Échec de l\'ajout de la mission : ' . $result['message'];
-        header('Location: ' . BASE_URL . '/missions/add');
-        exit();
+        foreach ($agents as $agentId) {
+            $agent = (new Agent())->getById($agentId);
+            foreach ($cibles as $cibleId) {
+                $cible = (new Cible())->getById($cibleId);
+                if ($agent['Nationalite'] === $cible['Nationalite']) {
+                    $errors[] = "Les agents et les cibles ne peuvent pas avoir la même nationalité.";
+                    break 2;
+                }
+            }
+        }
+    
+        foreach ($contacts as $contactId) {
+            $contact = (new Contact())->getById($contactId);
+            if ($contact['Pays'] !== $missionData['pays']) {
+                $errors[] = "Les contacts doivent être de la nationalité du pays de la mission.";
+                break;
+            }
+        }
+    
+        foreach ($planques as $planqueId) {
+            $planque = (new Planque())->getById($planqueId);
+            if ($planque['Pays'] !== $missionData['pays']) {
+                $errors[] = "Les planques doivent être dans le même pays que la mission.";
+                break;
+            }
+        }
+    
+        foreach ($agents as $agentId) {
+            $agentSpecialites = (new Agent())->getSpecialitesByAgentId($agentId);
+            if (!in_array($missionData['specialite'], $agentSpecialites)) {
+                $specialiteRequired = false;
+            } else {
+                $specialiteRequired = true;
+                break;
+            }
+        }
+        if (!$specialiteRequired) {
+            $errors[] = "Au moins un agent avec la spécialité requise doit être assigné à la mission.";
+        }
+
+        return $errors;
     }
-    }
+    
 }

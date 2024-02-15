@@ -7,11 +7,12 @@ use App\Controllers\AdminCiblesController;
 use App\Controllers\AdminContactsController;
 use App\Controllers\AdminMissionsController;
 use App\Controllers\AdminPlanquesController;
+use App\Controllers\AdminSpecialitesController;
 
 session_start();
 
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -211,6 +212,24 @@ $routes = [
                 http_response_code(404);
                 require BASE_PATH . '/app/views/404.php';
             }
+        });
+    },
+    '/admin/specialites' => function() {
+        AuthController::checkAuthAndExecute(function() {
+            $controller = new AdminSpecialitesController();
+            $controller->index();
+        });
+    },
+    '/admin/specialites/create' => function() {
+        AuthController::checkAuthAndExecute(function() {
+            $controller = new AdminSpecialitesController();
+            $controller->create();
+        });
+    },
+    '/admin/specialites/delete' => function() {
+        AuthController::checkAuthAndExecute(function() {
+            $controller = new AdminSpecialitesController();
+            $controller->delete();
         });
     },
     '/login' => function() {

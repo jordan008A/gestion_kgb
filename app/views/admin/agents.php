@@ -32,6 +32,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
 
@@ -77,6 +78,7 @@
                         <label for="edit-nationalite" class="form-label text-primary">Nationalité</label>
                         <input type="text" class="form-control" id="edit-nationalite" name="nationalite" required>
                     </div>
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                 </form>
             </div>
             <div class="modal-footer bg-white">

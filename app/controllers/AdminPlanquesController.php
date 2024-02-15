@@ -13,7 +13,17 @@ class AdminPlanquesController {
     }
 
     public function create() {
+        
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $planqueModel = new Planque();
             $adresse = $_POST['adresse'] ?? '';
             $pays = $_POST['pays'] ?? '';
@@ -33,7 +43,17 @@ class AdminPlanquesController {
     }  
 
     public function edit() {
+        
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $planqueModel = new Planque();
             $id = $_POST['planqueId'];
             $adresse = $_POST['adresse'] ?? '';

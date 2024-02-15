@@ -13,14 +13,25 @@ class AdminContactsController {
     }
 
     public function create() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $contactModel = new Contact();
             $nom = $_POST['nom'] ?? '';
             $prenom = $_POST['prenom'] ?? '';
             $dateNaissance = $_POST['dateNaissance'] ?? '';
             $nationalite = $_POST['nationalite'] ?? '';
+            $pays = $_POST['pays'] ?? '';
             
-            $success = $contactModel->add($nom, $prenom, $dateNaissance, $nationalite);
+            $success = $contactModel->add($nom, $prenom, $dateNaissance, $nationalite, $pays);
             
             if ($success) {
                 $_SESSION['success_message'] = 'Le contact a été ajouté avec succès.';
@@ -34,15 +45,26 @@ class AdminContactsController {
     }  
 
     public function edit() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $contactModel = new Contact();
             $id = $_POST['contactId'];
             $nom = $_POST['nom'] ?? '';
             $prenom = $_POST['prenom'] ?? '';
             $dateNaissance = $_POST['dateNaissance'] ?? '';
             $nationalite = $_POST['nationalite'] ?? '';
+            $pays = $_POST['pays'] ?? '';
     
-            if ($contactModel->update($id, $nom, $prenom, $dateNaissance, $nationalite)) {
+            if ($contactModel->update($id, $nom, $prenom, $dateNaissance, $nationalite, $pays)) {
                 $_SESSION['success_message'] = 'Le contact a été modifié avec succès.';
             } else {
                 $_SESSION['error_message'] = 'Erreur lors de la modification du contact.';

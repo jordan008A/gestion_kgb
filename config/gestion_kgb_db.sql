@@ -23,7 +23,8 @@ CREATE TABLE contacts (
     Nom VARCHAR(255),
     Prenom VARCHAR(255),
     DateNaissance DATE,
-    Nationalite VARCHAR(255)
+    Nationalite VARCHAR(255),
+    Pays VARCHAR(255)
 );
 
 CREATE TABLE planques (

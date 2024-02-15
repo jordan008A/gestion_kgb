@@ -11,6 +11,7 @@
             <label for="password" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>
 </main>

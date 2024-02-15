@@ -10,14 +10,14 @@ class Contact extends Model {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function add($nom, $prenom, $dateNaissance, $nationalite) {
+    public function add($nom, $prenom, $dateNaissance, $nationalite, $pays) {
         $this->db->begin_transaction();
         
         try {
             $contactId = $this->generateUuid();
     
-            $stmt = $this->db->prepare("INSERT INTO contacts (NomCode, Nom, Prenom, DateNaissance, Nationalite) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $contactId, $nom, $prenom, $dateNaissance, $nationalite);
+            $stmt = $this->db->prepare("INSERT INTO contacts (NomCode, Nom, Prenom, DateNaissance, Nationalite, Pays) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $contactId, $nom, $prenom, $dateNaissance, $nationalite, $pays);
             if (!$stmt->execute()) {
                 throw new Exception("Erreur lors de l'insertion du contact.");
             }
@@ -39,9 +39,9 @@ class Contact extends Model {
         return $result->fetch_assoc();
     }
 
-    public function update($id, $nom, $prenom, $dateNaissance, $nationalite) {
-        $stmt = $this->db->prepare("UPDATE contacts SET Nom = ?, Prenom = ?, DateNaissance = ?, Nationalite = ? WHERE NomCode = ?");
-        $stmt->bind_param("sssss", $nom, $prenom, $dateNaissance, $nationalite, $id);
+    public function update($id, $nom, $prenom, $dateNaissance, $nationalite, $pays) {
+        $stmt = $this->db->prepare("UPDATE contacts SET Nom = ?, Prenom = ?, DateNaissance = ?, Nationalite = ?, Pays = ? WHERE NomCode = ?");
+        $stmt->bind_param("ssssss", $nom, $prenom, $dateNaissance, $nationalite, $pays, $id);
         return $stmt->execute();
     }
 

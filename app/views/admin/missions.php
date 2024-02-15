@@ -13,18 +13,20 @@
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($mission['Titre']) ?></h5>
-                            <p class="card-text"><?= htmlspecialchars($mission['Description']) ?></p>
+                            <h5 class="card-title"><?= htmlspecialchars_decode($mission['Titre']) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars_decode($mission['Description']) ?></p>
                             <p class="card-text"><strong>Statut:</strong> <?= htmlspecialchars($mission['Statut']) ?></p>
-                            <form action="<?= BASE_URL ?>/admin/missions/changeStatus" method="post">
-                                <input type="hidden" name="missionId" value="<?= $mission['NomCode'] ?>">
-                                <select name="newStatus" class="form-select mb-2">
-                                    <option value="En cours">Mettre en cours</option>
-                                    <option value="Terminé">Terminer</option>
-                                    <option value="Echec">Échec</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary btn-sm">Changer le statut</button>
-                            </form>
+                            <?php if ($mission['Statut'] !== 'Terminé' && $mission['Statut'] !== 'Echec'): ?>
+                                <form action="<?= BASE_URL ?>/admin/missions/changeStatus" method="post">
+                                    <input type="hidden" name="missionId" value="<?= $mission['NomCode'] ?>">
+                                    <select name="newStatus" class="form-select mb-2">
+                                        <option value="En cours">Débuter la mission</option>
+                                        <option value="Terminé">Terminer la mission</option>
+                                        <option value="Echec">Échec</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm">Changer le statut</button>
+                                </form>
+                            <?php endif; ?>
                             <form action="<?= BASE_URL ?>/admin/missions/delete" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette mission ?');">
                                 <input type="hidden" name="missionId" value="<?= $mission['NomCode'] ?>">
                                 <button type="submit" class="btn btn-danger btn-sm mt-2">Supprimer</button>

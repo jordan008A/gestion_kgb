@@ -26,6 +26,7 @@
                     <li class="nav-item"><a href="<?= BASE_URL ?>/admin/cibles" class="nav-link">Cibles</a></li>
                     <li class="nav-item"><a href="<?= BASE_URL ?>/admin/contacts" class="nav-link">Contacts</a></li>
                     <li class="nav-item"><a href="<?= BASE_URL ?>/admin/planques" class="nav-link">Planques</a></li>
+                    <li class="nav-item"><a href="<?= BASE_URL ?>/admin/specialites" class="nav-link">Spécialités</a></li>
                     <li class="nav-item"><a href="<?= BASE_URL ?>/logout" class="btn btn-outline-light ms-2">Se déconnecter</a></li>
                 </ul>
             </div>

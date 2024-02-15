@@ -42,44 +42,57 @@ class Mission extends Model {
     
 
     public function addMission($titre, $description, $pays, $type, $statut, $specialite, $agents, $contacts, $cibles, $planques, $dateDebut) {
+        $errors = [];
         $this->db->begin_transaction();
+    
         try {
             $missionId = $this->generateUuid();
-    
             $stmt = $this->db->prepare("INSERT INTO missions (NomCode, Titre, Description, Pays, TypeMission, Statut, SpecialiteRequise, DateDebut) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssss", $missionId, $titre, $description, $pays, $type, $statut, $specialite, $dateDebut);
-            $stmt->execute();
+            $stmt->bind_param("ssssssss",$missionId, $titre, $description, $pays, $type, $statut, $specialite, $dateDebut);
     
-            foreach ($agents as $agentId) {
-                $stmt = $this->db->prepare("INSERT INTO Mission_Agent (MissionNomCode, AgentCodeID) VALUES (?, ?)");
-                $stmt->bind_param("ss", $missionId, $agentId);
-                $stmt->execute();
+            if (!$stmt->execute()) {
+                throw new Exception("Impossible d'ajouter la mission.");
             }
-
-            foreach ($contacts as $contactId) {
-                $stmt = $this->db->prepare("INSERT INTO Mission_Contact (MissionNomCode, ContactNomCode) VALUES (?, ?)");
-                $stmt->bind_param("ss", $missionId, $contactId);
-                $stmt->execute();
-            }
-
-            foreach ($cibles as $cibleId) {
-                $stmt = $this->db->prepare("INSERT INTO Mission_Cible (MissionNomCode, CibleNomCode) VALUES (?, ?)");
-                $stmt->bind_param("ss", $missionId, $cibleId);
-                $stmt->execute();
-            }
-
-            foreach ($planques as $planqueId) {
-                $stmt = $this->db->prepare("INSERT INTO Mission_Planque (MissionNomCode, PlanqueCode) VALUES (?, ?)");
-                $stmt->bind_param("ss", $missionId, $planqueId);
-                $stmt->execute();
-            }
-            
+    
+            $this->insertMissionRelations($missionId, 'Mission_Agent', $agents);
+            $this->insertMissionRelations($missionId, 'Mission_Contact', $contacts);
+            $this->insertMissionRelations($missionId, 'Mission_Cible', $cibles);
+            $this->insertMissionRelations($missionId, 'Mission_Planque', $planques);
+    
             $this->db->commit();
             return ['success' => true];
         } catch (Exception $e) {
+            $this->db->rollback();
+            error_log("Erreur lors de l'ajout de la mission: " . $e->getMessage());
             return ['success' => false, 'message' => $e->getMessage()];
         }
     }
+    
+    private function insertMissionRelations($missionNomCode, $tableName, $elements) {
+        foreach ($elements as $elementId) {
+            $elementColumn = "";
+            switch ($tableName) {
+                case 'Mission_Agent':
+                    $elementColumn = "AgentCodeID";
+                    break;
+                case 'Mission_Contact':
+                    $elementColumn = "ContactNomCode";
+                    break;
+                case 'Mission_Cible':
+                    $elementColumn = "CibleNomCode";
+                    break;
+                case 'Mission_Planque':
+                    $elementColumn = "PlanqueCode";
+                    break;
+            }
+    
+            $stmt = $this->db->prepare("INSERT INTO {$tableName} (MissionNomCode, {$elementColumn}) VALUES (?, ?)");
+            $stmt->bind_param("ss", $missionNomCode, $elementId);
+            if (!$stmt->execute()) {
+                throw new Exception("Impossible d'ajouter les éléments à {$tableName}.");
+            }
+        }
+    }    
 
     public function updateStatus($missionId, $newStatus) {
         $stmt = $this->db->prepare("UPDATE missions SET Statut = ?, DateFin = CASE WHEN ? IN ('Terminé', 'Echec') THEN NOW() ELSE DateFin END WHERE NomCode = ?");

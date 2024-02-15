@@ -37,6 +37,8 @@
                         <option value="Surveillance">Surveillance</option>
                         <option value="Assassinat">Assassinat</option>
                         <option value="Infiltration">Infiltration</option>
+                        <option value="Infiltration">Reconnaissance</option>
+                        <option value="Infiltration">Cyber-Sécurité</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -126,6 +128,7 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Ajouter l'ordre de mission</button>
                 </div>
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
             </form>
         </div>
     </div>

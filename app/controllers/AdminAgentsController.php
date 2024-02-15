@@ -17,7 +17,17 @@ class AdminAgentsController {
     }
 
     public function create() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $agentModel = new Agent();
             $nom = $_POST['nom'] ?? '';
             $prenom = $_POST['prenom'] ?? '';
@@ -39,7 +49,17 @@ class AdminAgentsController {
     }  
 
     public function edit() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $agentModel = new Agent();
             $id = $_POST['agentId'];
             $nom = $_POST['nom'] ?? '';

@@ -13,7 +13,17 @@ class AdminCiblesController {
     }
 
     public function create() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $cibleModel = new Cible();
             $nom = $_POST['nom'] ?? '';
             $prenom = $_POST['prenom'] ?? '';
@@ -34,7 +44,17 @@ class AdminCiblesController {
     }  
 
     public function edit() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $cibleModel = new Cible();
             $id = $_POST['cibleId'];
             $nom = $_POST['nom'] ?? '';

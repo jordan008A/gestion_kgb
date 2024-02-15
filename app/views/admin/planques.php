@@ -24,6 +24,7 @@
                 <option value="Safe house">Safe house</option>
             </select>
         </div>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
 
@@ -73,6 +74,7 @@
                             <option value="Safe house">Safe house</option>
                         </select>
                     </div>
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                 </form>
             </div>
             <div class="modal-footer bg-white">

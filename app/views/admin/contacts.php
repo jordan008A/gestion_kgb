@@ -21,6 +21,11 @@
             <label for="nationalite" class="form-label">Nationalité</label>
             <input type="text" class="form-control" id="nationalite" name="nationalite" placeholder="Nationalité" required>
         </div>
+        <div class="mb-3">
+            <label for="pays" class="form-label">Pays</label>
+            <input type="text" class="form-control" id="pays" name="pays" placeholder="Pays" required>
+        </div>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
 
@@ -30,7 +35,7 @@
     <?php foreach ($contacts as $contact): ?>
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title"><?= htmlspecialchars($contact['Nom']) . ' ' . htmlspecialchars($contact['Prenom']) . ' - ' . htmlspecialchars($contact['Nationalite']) ?></h5>
+                <h5 class="card-title"><?= htmlspecialchars($contact['Nom']) . ' ' . htmlspecialchars($contact['Prenom']) . ' Nationalité : ' . htmlspecialchars($contact['Nationalite']) . ' - Pays : ' . htmlspecialchars($contact['Pays']) ?></h5>
                 <form action="<?= BASE_URL ?>/admin/contacts/delete" method="post" style="display: inline-block;">
                     <input type="hidden" name="contactId" value="<?= $contact['NomCode'] ?>">
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Confirmer la suppression ?');">Supprimer</button>
@@ -67,6 +72,11 @@
                         <label for="edit-nationalite" class="form-label text-primary">Nationalité</label>
                         <input type="text" class="form-control" id="edit-nationalite" name="nationalite" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="edit-pays" class="form-label text-primary">Pays</label>
+                        <input type="text" class="form-control" id="edit-pays" name="pays" required>
+                    </div>
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                 </form>
             </div>
             <div class="modal-footer bg-white">

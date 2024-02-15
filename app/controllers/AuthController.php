@@ -6,7 +6,17 @@ use App\Models\Administrateur;
 
 class AuthController {
     public function login() {
+
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = 'Erreur de validation. Veuillez réessayer.';
+                header('Location: ' . BASE_URL . '/404');
+                exit();
+            }
             $email = $_POST['email'];
             $password = $_POST['password'];
     

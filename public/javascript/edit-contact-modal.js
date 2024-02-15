@@ -12,6 +12,7 @@ document.querySelectorAll('.edit-contact-btn').forEach(btn => {
                   document.getElementById('edit-prenom').value = contact.Prenom;
                   document.getElementById('edit-dateNaissance').value = contact.DateNaissance;
                   document.getElementById('edit-nationalite').value = contact.Nationalite;
+                  document.getElementById('edit-pays').value = contact.Pays;
 
                   let editContactModal = new bootstrap.Modal(document.getElementById('editContactModal'));
                   editContactModal.show();
