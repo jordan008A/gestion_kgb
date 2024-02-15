@@ -35,7 +35,7 @@ main {
   color: #e0e0e0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 576px) {
   .header h1, .footer p {
       font-size: 1em;
   }

@@ -1,7 +1,6 @@
 <?php include_once BASE_PATH . '/app/views/partials/_headerView.php'; ?>
 
 <main class="container py-4">
-    <a href="<?= BASE_URL ?>/missions/add" class="btn btn-primary mb-3">Ajouter une nouvelle mission</a>
     <h1 class="mb-4">Missions :</h1>
     <?php if (empty($missions)): ?>
         <div class="alert alert-warning" role="alert">

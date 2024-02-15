@@ -49,48 +49,67 @@
                 </div>
                 <div class="mb-3">
                     <label for="agents" class="form-label">Agents</label>
-                    <ul class="list-scroll">
+                    <div class="row gx-2">
                         <?php foreach ($getAgents as $agent): ?>
-                            <li>
-                                <input type="checkbox" id="agent<?= $agent['CodeID'] ?>" name="agents[]" value="<?= $agent['CodeID'] ?>">
-                                <label for="agent<?= $agent['CodeID'] ?>"><?= htmlspecialchars($agent['Nom']) . ' ' . htmlspecialchars($agent['Prenom']) . ' - ' . htmlspecialchars($agent['Nationalite']) ?> - Spécialités: <?= htmlspecialchars($agent['Specialites']) ?></label>
-                            </li>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="agent<?= $agent['CodeID'] ?>" name="agents[]" value="<?= $agent['CodeID'] ?>">
+                                    <label class="form-check-label" for="agent<?= $agent['CodeID'] ?>">
+                                        <?= htmlspecialchars($agent['Nom']) . ' ' . htmlspecialchars($agent['Prenom']) . ' - ' . htmlspecialchars($agent['Nationalite']) . '<br>- Spécialités: ' . htmlspecialchars($agent['Specialites']) ?>
+                                    </label>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="contacts" class="form-label">Contacts</label>
-                    <ul class="list-scroll">
+                    <div class="row gx-2 list-scroll">
                         <?php foreach ($getContacts as $contact): ?>
-                        <li>
-                            <input type="checkbox" id="contact<?= $contact['NomCode'] ?>" name="contacts[]" value="<?= $contact['NomCode'] ?>">
-                            <label for="contact<?= $contact['NomCode'] ?>"><?= htmlspecialchars($contact['Nom']) . ' ' . htmlspecialchars($contact['Prenom']) . ' - ' . htmlspecialchars($contact['Nationalite']) ?></label>
-                        </li>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="contact<?= $contact['NomCode'] ?>" name="contacts[]" value="<?= $contact['NomCode'] ?>">
+                                    <label class="form-check-label" for="contact<?= $contact['NomCode'] ?>">
+                                        <?= htmlspecialchars($contact['Nom']) . ' ' . htmlspecialchars($contact['Prenom']) . ' - ' . htmlspecialchars($contact['Nationalite']) ?>
+                                    </label>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="cibles" class="form-label">Cibles</label>
-                    <ul class="list-scroll">
+                    <div class="row gx-2 list-scroll">
                         <?php foreach ($getCibles as $cible): ?>
-                        <li>
-                            <input type="checkbox" id="cible<?= $cible['NomCode'] ?>" name="cibles[]" value="<?= $cible['NomCode'] ?>">
-                            <label for="cible<?= $cible['NomCode'] ?>"><?= htmlspecialchars($cible['Nom']) . ' ' . htmlspecialchars($cible['Prenom']) . ' - ' . htmlspecialchars($cible['Nationalite']) ?></label>
-                        </li>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cible<?= $cible['NomCode'] ?>" name="cibles[]" value="<?= $cible['NomCode'] ?>">
+                                    <label class="form-check-label" for="cible<?= $cible['NomCode'] ?>">
+                                        <?= htmlspecialchars($cible['Nom']) . ' ' . htmlspecialchars($cible['Prenom']) . ' - ' . htmlspecialchars($cible['Nationalite']) ?>
+                                    </label>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="planques" class="form-label">Planques</label>
-                    <ul class="list-scroll">
+                    <div class="row gx-2 list-scroll">
                         <?php foreach ($getPlanques as $planque): ?>
-                        <li>
-                            <input type="checkbox" id="planque<?= $planque['Code'] ?>" name="planques[]" value="<?= $planque['Code'] ?>">
-                            <label for="planque<?= $planque['Code'] ?>"><?= htmlspecialchars($planque['Adresse']) . ', ' . htmlspecialchars($planque['Pays']) ?></label>
-                        </li>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="planque<?= $planque['Code'] ?>" name="planques[]" value="<?= $planque['Code'] ?>">
+                                    <label class="form-check-label" for="planque<?= $planque['Code'] ?>">
+                                        <?= htmlspecialchars($planque['Adresse']) . ', ' . htmlspecialchars($planque['Pays']) ?>
+                                    </label>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="statut" class="form-label">Statut</label>
                     <select class="form-select" id="statut" name="statut" required>

@@ -2,6 +2,7 @@
 
 <main class="container py-4">
     <h2>Gestion des Missions</h2>
+    <a href="<?= BASE_URL ?>/missions/add" class="btn btn-primary mb-3">Ajouter une nouvelle mission</a>
     <?php if (empty($missions)): ?>
         <div class="alert alert-warning" role="alert">
             Aucune mission n'a été trouvée.
