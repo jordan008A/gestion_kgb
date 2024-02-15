@@ -43,7 +43,7 @@ class AdminContactsController {
             $nationalite = $_POST['nationalite'] ?? '';
     
             if ($contactModel->update($id, $nom, $prenom, $dateNaissance, $nationalite)) {
-                $_SESSION['success_message'] = 'Lu contact a été modifié avec succès.';
+                $_SESSION['success_message'] = 'Le contact a été modifié avec succès.';
             } else {
                 $_SESSION['error_message'] = 'Erreur lors de la modification du contact.';
             }

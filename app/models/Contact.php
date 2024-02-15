@@ -59,7 +59,7 @@ class Contact extends Model {
             return ['success' => true];
         } catch (\mysqli_sql_exception $e) {
             $this->db->rollback();
-            return ['success' => false, 'message' => "Ce contact est toujours en service et ne peut pas être supprimée."];
+            return ['success' => false, 'message' => "Ce contact est toujours en service et ne peut pas être supprimé."];
         } catch (Exception $e) {
             $this->db->rollback();
             return ['success' => false, 'message' => $e->getMessage()];

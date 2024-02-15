@@ -16,7 +16,7 @@ document.querySelectorAll('.edit-contact-btn').forEach(btn => {
                   let editContactModal = new bootstrap.Modal(document.getElementById('editContactModal'));
                   editContactModal.show();
               } else {
-                  alert('Erreur lors de la récupération des données de la contact');
+                  alert('Erreur lors de la récupération des données du contact');
               }
           })
           .catch(error => console.error('Erreur:', error));

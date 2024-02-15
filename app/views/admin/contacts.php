@@ -3,7 +3,7 @@
 <main class="container py-4">
     <h1 class="mb-4"><u>Gestion des Contacts</u></h1>
 
-    <h3>Ajouter une nouvelle contact</h3>
+    <h3>Ajouter un nouveau contact</h3>
     <form action="<?= BASE_URL ?>/admin/contacts/create" method="post" class="my-4">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>

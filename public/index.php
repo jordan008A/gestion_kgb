@@ -5,6 +5,7 @@ use App\Controllers\AdminAgentsController;
 use App\Controllers\AdminCiblesController;
 use App\Controllers\AdminContactsController;
 use App\Controllers\AdminMissionsController;
+use App\Controllers\AdminPlanquesController;
 
 session_start();
 
@@ -138,6 +139,31 @@ $routes = [
         if (isset($_GET['contactId'])) {
             $controller = new AdminContactsController();
             $controller->details($_GET['contactId']);
+        } else {
+            http_response_code(404);
+            require BASE_PATH . '/app/views/404.php';
+        }
+    },
+    '/admin/planques' => function() {
+        $controller = new AdminPlanquesController();
+        $controller->index();
+    },
+    '/admin/planques/create' => function() {
+        $controller = new AdminPlanquesController();
+        $controller->create();
+    },
+    '/admin/planques/edit' => function() {
+        $controller = new AdminPlanquesController();
+        $controller->edit();
+    },
+    '/admin/planques/delete' => function() {
+        $controller = new AdminPlanquesController();
+        $controller->delete();
+    },
+    '/admin/planques/details' => function() {
+        if (isset($_GET['planqueId'])) {
+            $controller = new AdminPlanquesController();
+            $controller->details($_GET['planqueId']);
         } else {
             http_response_code(404);
             require BASE_PATH . '/app/views/404.php';
