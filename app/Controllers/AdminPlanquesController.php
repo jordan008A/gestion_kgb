@@ -9,7 +9,7 @@ class AdminPlanquesController {
         $planqueModel = new Planque();
         $planques = $planqueModel->getAll();
         
-        require_once BASE_PATH . '/app/views/admin/planques.php';
+        require_once BASE_PATH . '/app/Views/admin/planques.php';
     }
 
     public function create() {

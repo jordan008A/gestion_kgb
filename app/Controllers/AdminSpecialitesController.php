@@ -9,7 +9,7 @@ class AdminSpecialitesController {
         $specialiteModel = new Specialite();
         $specialites = $specialiteModel->getAll();
         
-        require_once BASE_PATH . '/app/views/admin/specialites.php';
+        require_once BASE_PATH . '/app/Views/admin/specialites.php';
     }
 
     public function create() {

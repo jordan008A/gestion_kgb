@@ -13,7 +13,7 @@ class AdminAgentsController {
         $specialiteModel = new Specialite();
         $specialites = $specialiteModel->getAll();
         
-        require_once BASE_PATH . '/app/views/admin/agents.php';
+        require_once BASE_PATH . '/app/Views/admin/agents.php';
     }
 
     public function create() {

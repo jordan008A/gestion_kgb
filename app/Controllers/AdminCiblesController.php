@@ -9,7 +9,7 @@ class AdminCiblesController {
         $cibleModel = new Cible();
         $cibles = $cibleModel->getAll();
         
-        require_once BASE_PATH . '/app/views/admin/cibles.php';
+        require_once BASE_PATH . '/app/Views/admin/cibles.php';
     }
 
     public function create() {

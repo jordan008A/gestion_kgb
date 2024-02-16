@@ -1,4 +1,4 @@
-<?php include_once BASE_PATH . '/app/views/partials/_headerView.php'; ?>
+<?php include_once BASE_PATH . '/app/Views/partials/_headerView.php'; ?>
 
 <main class="container py-4">
     <h1 class="mb-4"><u>Gestion des Planques</u></h1>
@@ -87,4 +87,4 @@
 
 <script src="<?= BASE_URL ?>/javascript/edit-planque-modal.js"></script>
 
-<?php include_once BASE_PATH . '/app/views/partials/_footerView.php'; ?>
+<?php include_once BASE_PATH . '/app/Views/partials/_footerView.php'; ?>

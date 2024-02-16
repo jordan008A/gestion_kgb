@@ -8,7 +8,7 @@ class AdminMissionsController {
     public function index() {
         $missionModel = new Mission();
         $missions = $missionModel->getAll();
-        require_once BASE_PATH . '/app/views/admin/missions.php';
+        require_once BASE_PATH . '/app/Views/admin/missions.php';
     }
 
     public function changeStatus() {

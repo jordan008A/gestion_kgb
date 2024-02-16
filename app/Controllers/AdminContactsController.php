@@ -9,7 +9,7 @@ class AdminContactsController {
         $contactModel = new Contact();
         $contacts = $contactModel->getAll();
         
-        require_once BASE_PATH . '/app/views/admin/contacts.php';
+        require_once BASE_PATH . '/app/Views/admin/contacts.php';
     }
 
     public function create() {

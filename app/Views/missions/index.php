@@ -1,4 +1,4 @@
-<?php include_once BASE_PATH . '/app/views/partials/_headerView.php'; ?>
+<?php include_once BASE_PATH . '/app/Views/partials/_headerView.php'; ?>
 
 <main class="container py-4">
     <h1 class="mb-4">Missions :</h1>
@@ -35,4 +35,4 @@
     <?php endif; ?>
 </main>
 
-<?php include_once BASE_PATH . '/app/views/partials/_footerView.php'; ?>
+<?php include_once BASE_PATH . '/app/Views/partials/_footerView.php'; ?>

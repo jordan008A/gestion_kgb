@@ -12,7 +12,7 @@ use App\Controllers\AdminSpecialitesController;
 session_start();
 
 
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -26,7 +26,7 @@ if ($_SERVER['HTTP_HOST'] == "localhost") {
 }
 
 $routes = [
-    '/' => function() { require BASE_PATH . '/app/views/home.php'; },
+    '/' => function() { require BASE_PATH . '/app/Views/home.php'; },
     '/missions' => function() {
         $controller = new MissionsController();
         $controller->index();
@@ -37,7 +37,7 @@ $routes = [
             $controller->details($_GET['nomCode']);
         } else {
             http_response_code(404);
-            require BASE_PATH . '/app/views/404.php';
+            require BASE_PATH . '/app/Views/404.php';
         }
     },
     '/missions/add' => function() {
@@ -101,7 +101,7 @@ $routes = [
                 $controller->details($_GET['agentId']);
             } else {
                 http_response_code(404);
-                require BASE_PATH . '/app/views/404.php';
+                require BASE_PATH . '/app/Views/404.php';
             }
         });
     },
@@ -136,7 +136,7 @@ $routes = [
                 $controller->details($_GET['cibleId']);
             } else {
                 http_response_code(404);
-                require BASE_PATH . '/app/views/404.php';
+                require BASE_PATH . '/app/Views/404.php';
             }
         });
     },
@@ -171,7 +171,7 @@ $routes = [
                 $controller->details($_GET['contactId']);
             } else {
                 http_response_code(404);
-                require BASE_PATH . '/app/views/404.php';
+                require BASE_PATH . '/app/Views/404.php';
             }
         });
     },
@@ -206,7 +206,7 @@ $routes = [
                 $controller->details($_GET['planqueId']);
             } else {
                 http_response_code(404);
-                require BASE_PATH . '/app/views/404.php';
+                require BASE_PATH . '/app/Views/404.php';
             }
         });
     },
@@ -236,7 +236,7 @@ $routes = [
         $controller = new AuthController();
         $controller->logout();
     },    
-    '/404' => function() { require BASE_PATH . '/app/views/404.php'; },
+    '/404' => function() { require BASE_PATH . '/app/Views/404.php'; },
 ];
 
 // Extraction du chemin demandé et normalisation
@@ -252,5 +252,5 @@ if (array_key_exists($requestedPath, $routes)) {
     $routeAction();
 } else {
     http_response_code(404);
-    require BASE_PATH . '/app/views/404.php';
+    require BASE_PATH . '/app/Views/404.php';
 }

@@ -33,7 +33,7 @@ class AuthController {
                 exit();
             }            
         }
-        require_once BASE_PATH . '/app/views/login.php';
+        require_once BASE_PATH . '/app/Views/login.php';
     }
     
 

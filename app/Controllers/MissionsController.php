@@ -13,13 +13,13 @@ class MissionsController {
     public function index() {
         $missionModel = new Mission();
         $missions = $missionModel->getAll();
-        require_once BASE_PATH . '/app/views/missions/index.php';
+        require_once BASE_PATH . '/app/Views/missions/index.php';
     }
 
     public function details($nomCode) {
         $missionModel = new Mission();
         $missionDetails = $missionModel->getByNomCode($nomCode);
-        require_once BASE_PATH . '/app/views/missions/details.php';
+        require_once BASE_PATH . '/app/Views/missions/details.php';
     }
     
 
@@ -40,7 +40,7 @@ class MissionsController {
         $specialiteModel = new Specialite();
         $getSpecialites = $specialiteModel->getAll();
         
-        require_once BASE_PATH . '/app/views/missions/add.php';
+        require_once BASE_PATH . '/app/Views/missions/add.php';
     }
 
     public function store() {
