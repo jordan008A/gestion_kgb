@@ -17,18 +17,14 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Définition du chemin de base du système de fichiers
 define('BASE_PATH', realpath(__DIR__ . '/..'));
 
-// Définition de la base de l'URL pour une utilisation dans les liens et les ressources
 if ($_SERVER['HTTP_HOST'] == "localhost") {
     define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/gestion_kgb/public');
 } else {
-    // Adaptation pour l'environnement de production
     define('BASE_URL', '');
 }
 
-// Configuration des routes de l'application
 $routes = [
     '/' => function() { require BASE_PATH . '/app/views/home.php'; },
     '/missions' => function() {
