@@ -43,30 +43,30 @@ INSERT INTO `administrateurs` VALUES ('james@bond.fr','Bond','James','$2y$10$N3V
 UNLOCK TABLES;
 
 --
--- Table structure for table `agent_specialite`
+-- Table structure for table `Agent_Specialite`
 --
 
-DROP TABLE IF EXISTS `agent_specialite`;
+DROP TABLE IF EXISTS `Agent_Specialite`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `agent_specialite` (
+CREATE TABLE `Agent_Specialite` (
   `AgentCodeID` char(36) NOT NULL,
   `SpecialiteNom` varchar(255) NOT NULL,
   PRIMARY KEY (`AgentCodeID`,`SpecialiteNom`),
   KEY `SpecialiteNom` (`SpecialiteNom`),
-  CONSTRAINT `agent_specialite_ibfk_1` FOREIGN KEY (`AgentCodeID`) REFERENCES `agents` (`CodeID`),
-  CONSTRAINT `agent_specialite_ibfk_2` FOREIGN KEY (`SpecialiteNom`) REFERENCES `specialites` (`Nom`)
+  CONSTRAINT `Agent_Specialite_ibfk_1` FOREIGN KEY (`AgentCodeID`) REFERENCES `agents` (`CodeID`),
+  CONSTRAINT `Agent_Specialite_ibfk_2` FOREIGN KEY (`SpecialiteNom`) REFERENCES `specialites` (`Nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `agent_specialite`
+-- Dumping data for table `Agent_Specialite`
 --
 
-LOCK TABLES `agent_specialite` WRITE;
-/*!40000 ALTER TABLE `agent_specialite` DISABLE KEYS */;
-INSERT INTO `agent_specialite` VALUES ('65ce1de6f3f225.48306020','Charme'),('65ce1de6f3f225.48306020','Combat rapproch├®'),('65ce1de6f3f225.48306020','Infiltration'),('65ce1de6f3f225.48306020','Pilotage'),('65ce1de6f3f225.48306020','Tir de pr├®cision'),('65ce1e108ff428.23780373','Combat rapproch├®'),('65ce1e108ff428.23780373','Explosif'),('65ce1e108ff428.23780373','Informatique'),('65ce1e108ff428.23780373','Pilotage'),('65ce1e108ff428.23780373','Tir de pr├®cision'),('65ce1e30f39b17.48868542','Charme'),('65ce1e30f39b17.48868542','Combat rapproch├®'),('65ce1e30f39b17.48868542','Infiltration'),('65ce1e30f39b17.48868542','Surveillance');
-/*!40000 ALTER TABLE `agent_specialite` ENABLE KEYS */;
+LOCK TABLES `Agent_Specialite` WRITE;
+/*!40000 ALTER TABLE `Agent_Specialite` DISABLE KEYS */;
+INSERT INTO `Agent_Specialite` VALUES ('65ce1de6f3f225.48306020','Charme'),('65ce1de6f3f225.48306020','Combat rapproch├®'),('65ce1de6f3f225.48306020','Infiltration'),('65ce1de6f3f225.48306020','Pilotage'),('65ce1de6f3f225.48306020','Tir de pr├®cision'),('65ce1e108ff428.23780373','Combat rapproch├®'),('65ce1e108ff428.23780373','Explosif'),('65ce1e108ff428.23780373','Informatique'),('65ce1e108ff428.23780373','Pilotage'),('65ce1e108ff428.23780373','Tir de pr├®cision'),('65ce1e30f39b17.48868542','Charme'),('65ce1e30f39b17.48868542','Combat rapproch├®'),('65ce1e30f39b17.48868542','Infiltration'),('65ce1e30f39b17.48868542','Surveillance');
+/*!40000 ALTER TABLE `Agent_Specialite` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -152,111 +152,111 @@ INSERT INTO `contacts` VALUES ('65ce1c9f007f03.51402133','Wesley','Ron','1992-02
 UNLOCK TABLES;
 
 --
--- Table structure for table `mission_agent`
+-- Table structure for table `Mission_Agent`
 --
 
-DROP TABLE IF EXISTS `mission_agent`;
+DROP TABLE IF EXISTS `Mission_Agent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mission_agent` (
+CREATE TABLE `Mission_Agent` (
   `MissionNomCode` char(36) NOT NULL,
   `AgentCodeID` char(36) NOT NULL,
   PRIMARY KEY (`MissionNomCode`,`AgentCodeID`),
   KEY `AgentCodeID` (`AgentCodeID`),
-  CONSTRAINT `mission_agent_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
-  CONSTRAINT `mission_agent_ibfk_2` FOREIGN KEY (`AgentCodeID`) REFERENCES `agents` (`CodeID`)
+  CONSTRAINT `Mission_Agent_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
+  CONSTRAINT `Mission_Agent_ibfk_2` FOREIGN KEY (`AgentCodeID`) REFERENCES `agents` (`CodeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mission_agent`
+-- Dumping data for table `Mission_Agent`
 --
 
-LOCK TABLES `mission_agent` WRITE;
-/*!40000 ALTER TABLE `mission_agent` DISABLE KEYS */;
-INSERT INTO `mission_agent` VALUES ('65ce25aca9a916.21251463','65ce1e108ff428.23780373'),('65ce25aca9a916.21251463','65ce1e30f39b17.48868542'),('65ce271ca76a05.02467109','65ce1e108ff428.23780373'),('65ce27619c14c8.45918670','65ce1de6f3f225.48306020'),('65ce27a9727ed2.71805995','65ce1de6f3f225.48306020'),('65ce27a9727ed2.71805995','65ce1e108ff428.23780373'),('65ce28074a9300.12367663','65ce1de6f3f225.48306020');
-/*!40000 ALTER TABLE `mission_agent` ENABLE KEYS */;
+LOCK TABLES `Mission_Agent` WRITE;
+/*!40000 ALTER TABLE `Mission_Agent` DISABLE KEYS */;
+INSERT INTO `Mission_Agent` VALUES ('65ce25aca9a916.21251463','65ce1e108ff428.23780373'),('65ce25aca9a916.21251463','65ce1e30f39b17.48868542'),('65ce271ca76a05.02467109','65ce1e108ff428.23780373'),('65ce27619c14c8.45918670','65ce1de6f3f225.48306020'),('65ce27a9727ed2.71805995','65ce1de6f3f225.48306020'),('65ce27a9727ed2.71805995','65ce1e108ff428.23780373'),('65ce28074a9300.12367663','65ce1de6f3f225.48306020');
+/*!40000 ALTER TABLE `Mission_Agent` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `mission_cible`
+-- Table structure for table `Mission_Agent`
 --
 
-DROP TABLE IF EXISTS `mission_cible`;
+DROP TABLE IF EXISTS `Mission_Agent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mission_cible` (
+CREATE TABLE `Mission_Agent` (
   `MissionNomCode` char(36) NOT NULL,
   `CibleNomCode` char(36) NOT NULL,
   PRIMARY KEY (`MissionNomCode`,`CibleNomCode`),
   KEY `CibleNomCode` (`CibleNomCode`),
-  CONSTRAINT `mission_cible_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
-  CONSTRAINT `mission_cible_ibfk_2` FOREIGN KEY (`CibleNomCode`) REFERENCES `cibles` (`NomCode`)
+  CONSTRAINT `Mission_Agent_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
+  CONSTRAINT `Mission_Agent_ibfk_2` FOREIGN KEY (`CibleNomCode`) REFERENCES `cibles` (`NomCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mission_cible`
+-- Dumping data for table `Mission_Agent`
 --
 
-LOCK TABLES `mission_cible` WRITE;
-/*!40000 ALTER TABLE `mission_cible` DISABLE KEYS */;
-INSERT INTO `mission_cible` VALUES ('65ce25aca9a916.21251463','65ce1d8259f707.74725972'),('65ce271ca76a05.02467109','65ce1dbe3f9ea8.55345114'),('65ce27619c14c8.45918670','65ce1d3f2f72e6.12069164'),('65ce27a9727ed2.71805995','65ce1d98d5bd42.28573353'),('65ce28074a9300.12367663','65ce1d5a8fd7e9.14520372');
-/*!40000 ALTER TABLE `mission_cible` ENABLE KEYS */;
+LOCK TABLES `Mission_Agent` WRITE;
+/*!40000 ALTER TABLE `Mission_Agent` DISABLE KEYS */;
+INSERT INTO `Mission_Agent` VALUES ('65ce25aca9a916.21251463','65ce1d8259f707.74725972'),('65ce271ca76a05.02467109','65ce1dbe3f9ea8.55345114'),('65ce27619c14c8.45918670','65ce1d3f2f72e6.12069164'),('65ce27a9727ed2.71805995','65ce1d98d5bd42.28573353'),('65ce28074a9300.12367663','65ce1d5a8fd7e9.14520372');
+/*!40000 ALTER TABLE `Mission_Agent` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `mission_contact`
+-- Table structure for table `Mission_Contact`
 --
 
-DROP TABLE IF EXISTS `mission_contact`;
+DROP TABLE IF EXISTS `Mission_Contact`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mission_contact` (
+CREATE TABLE `Mission_Contact` (
   `MissionNomCode` char(36) NOT NULL,
   `ContactNomCode` char(36) NOT NULL,
   PRIMARY KEY (`MissionNomCode`,`ContactNomCode`),
   KEY `ContactNomCode` (`ContactNomCode`),
-  CONSTRAINT `mission_contact_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
-  CONSTRAINT `mission_contact_ibfk_2` FOREIGN KEY (`ContactNomCode`) REFERENCES `contacts` (`NomCode`)
+  CONSTRAINT `Mission_Contact_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
+  CONSTRAINT `Mission_Contact_ibfk_2` FOREIGN KEY (`ContactNomCode`) REFERENCES `contacts` (`NomCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mission_contact`
+-- Dumping data for table `Mission_Contact`
 --
 
-LOCK TABLES `mission_contact` WRITE;
-/*!40000 ALTER TABLE `mission_contact` DISABLE KEYS */;
-INSERT INTO `mission_contact` VALUES ('65ce25aca9a916.21251463','65ce1cfd0ad881.42066697'),('65ce271ca76a05.02467109','65ce1c9f007f03.51402133'),('65ce27619c14c8.45918670','65ce1d1eadc479.28523283'),('65ce27a9727ed2.71805995','65ce1cb9645715.59777431'),('65ce28074a9300.12367663','65ce1cd18324b4.62999202');
-/*!40000 ALTER TABLE `mission_contact` ENABLE KEYS */;
+LOCK TABLES `Mission_Contact` WRITE;
+/*!40000 ALTER TABLE `Mission_Contact` DISABLE KEYS */;
+INSERT INTO `Mission_Contact` VALUES ('65ce25aca9a916.21251463','65ce1cfd0ad881.42066697'),('65ce271ca76a05.02467109','65ce1c9f007f03.51402133'),('65ce27619c14c8.45918670','65ce1d1eadc479.28523283'),('65ce27a9727ed2.71805995','65ce1cb9645715.59777431'),('65ce28074a9300.12367663','65ce1cd18324b4.62999202');
+/*!40000 ALTER TABLE `Mission_Contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `mission_planque`
+-- Table structure for table `Mission_Planque`
 --
 
-DROP TABLE IF EXISTS `mission_planque`;
+DROP TABLE IF EXISTS `Mission_Planque`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mission_planque` (
+CREATE TABLE `Mission_Planque` (
   `MissionNomCode` char(36) NOT NULL,
   `PlanqueCode` char(36) NOT NULL,
   PRIMARY KEY (`MissionNomCode`,`PlanqueCode`),
   KEY `PlanqueCode` (`PlanqueCode`),
-  CONSTRAINT `mission_planque_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
-  CONSTRAINT `mission_planque_ibfk_2` FOREIGN KEY (`PlanqueCode`) REFERENCES `planques` (`Code`)
+  CONSTRAINT `Mission_Planque_ibfk_1` FOREIGN KEY (`MissionNomCode`) REFERENCES `missions` (`NomCode`),
+  CONSTRAINT `Mission_Planque_ibfk_2` FOREIGN KEY (`PlanqueCode`) REFERENCES `planques` (`Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mission_planque`
+-- Dumping data for table `Mission_Planque`
 --
 
-LOCK TABLES `mission_planque` WRITE;
-/*!40000 ALTER TABLE `mission_planque` DISABLE KEYS */;
-INSERT INTO `mission_planque` VALUES ('65ce25aca9a916.21251463','65ce1c528cdef9.56785923'),('65ce271ca76a05.02467109','65ce1c5f80c895.54890169'),('65ce27619c14c8.45918670','65ce1c43842c51.44693989'),('65ce27a9727ed2.71805995','65ce1bd812a326.34065806'),('65ce28074a9300.12367663','65ce1bc9e5d677.97327006');
-/*!40000 ALTER TABLE `mission_planque` ENABLE KEYS */;
+LOCK TABLES `Mission_Planque` WRITE;
+/*!40000 ALTER TABLE `Mission_Planque` DISABLE KEYS */;
+INSERT INTO `Mission_Planque` VALUES ('65ce25aca9a916.21251463','65ce1c528cdef9.56785923'),('65ce271ca76a05.02467109','65ce1c5f80c895.54890169'),('65ce27619c14c8.45918670','65ce1c43842c51.44693989'),('65ce27a9727ed2.71805995','65ce1bd812a326.34065806'),('65ce28074a9300.12367663','65ce1bc9e5d677.97327006');
+/*!40000 ALTER TABLE `Mission_Planque` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

@@ -13,10 +13,10 @@ class Model {
         $dotenv->load();
         
         $this->db = new mysqli(
-            getenv('JAWSDB_HOST') ?: getenv('DB_HOST'), 
-            getenv('JAWSDB_USERNAME') ?: getenv('DB_USERNAME'), 
-            getenv('JAWSDB_PASSWORD') ?: getenv('DB_PASSWORD'), 
-            getenv('JAWSDB_NAME') ?: getenv('DB_NAME')
+            $_ENV['JAWSDB_HOST'] ?? $_ENV['DB_HOST'], 
+            $_ENV['JAWSDB_USERNAME'] ?? $_ENV['DB_USERNAME'], 
+            $_ENV['JAWSDB_PASSWORD'] ?? $_ENV['DB_PASSWORD'], 
+            $_ENV['JAWSDB_NAME'] ?? $_ENV['DB_NAME']
         );
         
         if ($this->db->connect_error) {
