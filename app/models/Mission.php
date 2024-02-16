@@ -114,11 +114,9 @@ class Mission extends Model {
             $stmt->bind_param("s", $missionId);
             $stmt->execute();
     
-            // Si tout va bien, transaction validée
             $this->db->commit();
             return true;
         } catch (\mysqli_sql_exception $e) {
-            // En cas d'erreur, transaction annulée
             $this->db->rollback();
             throw $e;
         }

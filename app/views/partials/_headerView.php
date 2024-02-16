@@ -35,7 +35,7 @@
         <?php endif; ?>
     </div>
 </header>
-<div class="container mt-2">
+<div class="container my-3">
     <?php if (isset($_SESSION['success_message'])): ?>
         <div class="alert alert-success" role="alert">
             <?= $_SESSION['success_message']; ?>

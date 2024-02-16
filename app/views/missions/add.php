@@ -1,19 +1,5 @@
 <?php include_once BASE_PATH . '/app/views/partials/_headerView.php'; ?>
 
-<?php if (isset($_SESSION['error_messages'])): ?>
-    <div class="alert alert-danger" role="alert">
-        <?= implode('<br>', $_SESSION['error_messages']); ?>
-    </div>
-    <?php unset($_SESSION['error_messages']); ?>
-<?php endif; ?>
-
-<?php if (isset($_SESSION['success_message'])): ?>
-    <div class="alert alert-success" role="alert">
-        <?= $_SESSION['success_message']; ?>
-    </div>
-    <?php unset($_SESSION['success_message']); ?>
-<?php endif; ?>
-
 <main class="container py-4">
     <h2 class="mb-4">Ajouter une nouvelle mission</h2>
     <div class="row">
@@ -53,12 +39,17 @@
                     <label for="agents" class="form-label">Agents</label>
                     <div class="row gx-2">
                         <?php foreach ($getAgents as $agent): ?>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="agent<?= $agent['CodeID'] ?>" name="agents[]" value="<?= $agent['CodeID'] ?>">
-                                    <label class="form-check-label" for="agent<?= $agent['CodeID'] ?>">
-                                        <?= htmlspecialchars($agent['Nom']) . ' ' . htmlspecialchars($agent['Prenom']) . ' - ' . htmlspecialchars($agent['Nationalite']) . '<br>- Spécialités: ' . htmlspecialchars($agent['Specialites']) ?>
-                                    </label>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= htmlspecialchars($agent['Nom']) . ' ' . htmlspecialchars($agent['Prenom']) ?></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><?= htmlspecialchars($agent['Nationalite']) ?></h6>
+                                        <p class="card-text">Spécialités: <?= htmlspecialchars($agent['Specialites']) ?></p>
+                                        <div class="form-check">
+                                        <input type="checkbox" class="btn-check" id="agent<?= $agent['CodeID'] ?>" name="agents[]" value="<?= $agent['CodeID'] ?>" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="agent<?= $agent['CodeID'] ?>">Sélectionner</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
